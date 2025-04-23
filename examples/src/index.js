@@ -1,17 +1,17 @@
 import {
-    CSDate,
-    addDaysToDate,
-    dateToTimestamp,
-    timestampToDate,
-    timestampToDateNoTime,
-    toFixed,
-    toJson,
-    toString,
-    isArray,
-    isBoolean,
-    isNil,
-    randomBoolean
-} from '../../es'
+  CSDate,
+  addDaysToDate,
+  dateToTimestamp,
+  timestampToDate,
+  timestampToDateNoTime,
+  toFixed,
+  toJson,
+  toString,
+  isArray,
+  isBoolean,
+  isNil,
+  randomBoolean
+} from "../../es"
 /**日期类demo */
 console.log(addDaysToDate(null, 0))
 // console.log(addDaysToDate('2020-10-15', 10))
@@ -25,8 +25,6 @@ console.log(addDaysToDate(null, 0))
 
 // console.log(timestampToDateNoTime())
 // console.log(timestampToDateNoTime(1622711246300))
-
-
 
 /**格式类方法demo */
 

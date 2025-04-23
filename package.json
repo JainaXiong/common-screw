@@ -16,18 +16,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/giseles/common-screw.git"
+    "url": "git+https://github.com/JainaXiong/common-screw.git"
   },
   "keywords": [
     "common-screw",
     "typescript"
   ],
-  "author": "gisele Xiong  https://github.com/giseles",
+  "author": "JainaXiong  https://github.com/JainaXiong",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/giseles/common-screw/issues"
+    "url": "https://github.com/JainaXiong/common-screw/issues"
   },
-  "homepage": "https://github.com/giseles/common-screw#readme",
+  "homepage": "https://github.com/JainaXiong/common-screw#readme",
   "devDependencies": {
     "@types/jest": "^29.5.14",
     "jest": "^29.7.0",

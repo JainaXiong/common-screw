@@ -1,11 +1,14 @@
 {
-  "editor.formatOnSave": true,
-  "eslint.enable": true,
+  "editor.formatOnSave": true, // 保存文件时自动格式化代码
+  "eslint.enable": true, // 启用 ESLint 检查
   "editor.quickSuggestions": {
-    "other": true,
-    "comments": false,
-    "strings": false
+    // 控制在不同上下文中是否显示快速建议
+    "other": true, // 在代码中显示建议
+    "comments": false, // 在注释中不显示建议
+    "strings": false // 在字符串中不显示建议
   },
-  "editor.suggest.snippetsPreventQuickSuggestions": false,
-  "typescript.validate.enable": true
+  "editor.suggest.snippetsPreventQuickSuggestions": false, // 允许代码片段与快速建议一起显示
+  "typescript.validate.enable": true, // 启用 TypeScript 验证
+  "editor.tabSize": 2, // 设置缩进为2个空格，与你的代码风格一致
+  "typescript.updateImportsOnFileMove.enabled": "always" // 移动文件时自动更新导入路径
 }

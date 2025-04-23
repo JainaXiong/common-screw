@@ -6,5 +6,6 @@ src/
 .npmignore
 .idea
 .vscode
+.DS_Store
 jest.config.json
 tsconfig.json

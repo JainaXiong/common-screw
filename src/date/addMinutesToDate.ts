@@ -12,7 +12,6 @@ import { timestampToDate } from "./timestampToDate"
  */
 export const addMinutesToDate = (date?: string, n: number = 0) => {
   const d = date ? new Date(date) : new Date()
-
   d.setTime(d.getTime() + n * 60000)
   return timestampToDate(d.getTime())
 }

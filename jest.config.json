@@ -7,9 +7,9 @@
   "collectCoverage": true,
   "clearMocks": true,
   "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "/examples/",
-      "/es/",
-      "/src/_testComponent"
+    "/node_modules/",
+    "/examples/",
+    "/es/",
+    "/src/_testComponent"
   ]
 }

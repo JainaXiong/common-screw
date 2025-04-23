@@ -17,7 +17,12 @@ export const url = {
   // 获取全部参数
   getAllParams: (url: string = location.href.toString()) => {
     const searchParams: any = init(url, "params")
-    return Object.fromEntries(searchParams.entries())
+    // 将 URLSearchParams 转换为普通对象
+    const paramsObj: { [key: string]: string } = {}
+    searchParams.forEach((v: any, k: any) => {
+      paramsObj[k] = v
+    })
+    return paramsObj
   },
   // 获取指定参数
   getParams: (url: string = location.href.toString(), key: string) => {

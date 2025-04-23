@@ -5,7 +5,7 @@
  */
 export const isWeiXin = (): boolean => {
   const ua = window.navigator.userAgent.toLowerCase()
-  const match = ua.match(/MicroMessenger/i)
+  const match: any = ua.match(/MicroMessenger/i)
   if (match === null) {
     return false
   }

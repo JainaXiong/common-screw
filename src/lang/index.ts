@@ -12,6 +12,7 @@ import { isNil } from "./isNil"
 
 export * from "./common"
 export * from "./isNil"
+export * from "./isEqual"
 
 /**
  * @name 语法 类方法

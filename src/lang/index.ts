@@ -7,6 +7,7 @@ import {
   isNumber,
   isUndefined
 } from "./common"
+import { isEqual } from "./isEqual"
 import { isNil } from "./isNil"
 
 export * from "./common"
@@ -27,6 +28,7 @@ export * from "./isNil"
  */
 export const CSLang = {
   isNil,
+  isEqual,
   isArray,
   isBoolean,
   isObject,

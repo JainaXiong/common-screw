@@ -1,0 +1,109 @@
+<!--
+ * @Author: Jaina Xiong
+ * @Email: 17761608@qq.com
+ * @Date: 2025-08-14 17:19:26
+ * @LastEditors: Jaina Xiong
+ * @LastEditTime: 2025-08-14 17:21:12
+-->
+
+## 项目代码风格与提交规范（common-screw）
+
+### 总体原则
+
+- **语言与标准**: 全量使用 TypeScript，`strict: true`。目标环境 `target: es6`，模块 `module: es2015`。
+- **导出策略**: 仅使用命名导出；每个功能目录提供 `index.ts` 聚合导出，根 `src/index.ts` 统一再导出。
+- **函数风格**: 使用箭头函数并直接导出：`export const fnName = (...) => { ... }`。可单行时允许表达式体简写。
+- **不可变与纯函数**: 工具函数默认不修改入参，返回新值；需要副作用（如计时器、剪贴板）时在注释中明确说明。
+
+### 格式与代码细节
+
+- **缩进**: 两个空格，不使用 Tab。
+- **分号**: 与现有代码保持一致，默认不加分号。
+- **引号**: 建议使用双引号，已有文件保持原样；正则/模板字面量按需选择。
+- **文件命名**: 小驼峰英文，例如 `deepClone.ts`、`getType.ts`。
+- **命名约定**:
+  - 函数与变量使用有语义的英文单词；函数名用动词或动宾短语（如 `addDaysToDate`、`getType`）。
+  - 常量（真正不变的配置）可使用全大写下划线风格。
+- **类型约定**:
+  - 为公开导出函数的参数标注明确类型；能推断的局部变量可省略。
+  - 避免 `any`，若确需使用需在注释中说明原因或边界。
+  - 返回类型能明确时建议显式标注（如 `(): string`）。
+- **注释约定**:
+  - 使用中文 JSDoc 风格块注释，包含 `@name`、关键 `@param`、必要的 `@example`；示例尽量可运行、覆盖常见用法。
+  - 不写无意义注释；避免在代码中内联解释显而易见的语句。
+
+### 目录与模块组织
+
+- 每个子域目录（如 `browser`、`date`、`function`、`format`、`lang` 等）聚合导出于其 `index.ts`。
+- 根 `src/index.ts` 统一再导出各子域：`export * from "./xxx"`。
+- 避免默认导出，保持命名导出的一致性与可树摇。
+
+### 常见函数形态示例
+
+```ts
+/**
+ * @name 获取变量的精确类型
+ * @param {any} obj 需要判断类型的变量
+ * @example
+ *  getType(123)       ---- "number"
+ */
+export const getType = (obj: unknown): string => {
+  const primitiveType = typeof obj
+  if (primitiveType !== 'object') return primitiveType
+  return Object.prototype.toString.call(obj).replace(/^\[object (\S+)\]$/, '$1')
+}
+```
+
+### 测试规范（Jest + ts-jest）
+
+- 测试文件放在对应目录下的 `test` 子目录，命名以 `.test.ts` 结尾，例如 `src/function/test/debounce.test.ts`。
+- 断言覆盖核心分支与边界情况；新增导出函数需配套新增测试。
+- 常用脚本：
+  - 运行测试：`npm run test`
+  - 监听测试：`npm run test:watch`
+  - 覆盖率：`npm run coverage`
+
+### 构建与发布
+
+- 构建使用 `tsc` 输出到 `es/`，自动生成声明文件（`declaration: true`）。
+- 构建产物不入库；发布前通过 `prepare` 钩子自动编译。
+- `tsconfig.json` 中 `exclude` 已排除测试与示例目录，新增目录需同步维护。
+
+### 浏览器/环境注意
+
+- 目标为现代浏览器/Node 环境（ES6）；涉及浏览器 API 时需进行环境判断（参见 `browser/isBrowser.ts`）。
+- 涉及副作用的工具（如 `debounce`、剪贴板）需在注释 `@description` 中标注行为和限制。
+
+### 错误处理与边界
+
+- 对 `null`/`undefined` 进行显式处理；必要时返回 `null` 或空值而非抛错，保持工具库稳健性。
+- 正则与日期等易错领域需提供示例并在测试中覆盖异常输入。
+
+### PR/Commit 提交规范
+
+- 信息格式：`type(scope): description`
+- 建议类型：`feat`、`fix`、`docs`、`refactor`、`test`、`build`、`chore`、`perf`、`style`、`ci`、`revert`
+- `scope` 建议使用子域目录名（如 `function`、`date`、`browser`、`regexp`、`storage` 等），或具体方法名。
+- `description` 使用简体中文，简洁明确，避免标点结尾的句号。
+
+示例：
+
+```text
+feat(function): 新增 throttle 函数并补充单元测试
+fix(date): 修复 timestampToDate 在秒精度下的边界问题
+test(lang): 完善 getType 的 RegExp 与 Date 用例
+docs(readme): 更新快速开始与 API 索引
+```
+
+### 代码评审清单
+
+- 是否为导出函数提供了类型与示例？
+- 是否影响到聚合导出（对应 `index.ts` 是否更新）？
+- 是否添加/更新了测试并通过本地运行？
+- 是否符合本规则的命名、缩进、引号与注释要求？
+- 提交信息是否符合 `type(scope): description`？
+
+### 例外与兼容
+
+- 对历史文件，保持最小必要变更；大规模风格改动需单独 PR 并说明动机。
+- 若需第三方依赖，需评估体积与通用性，尽量原生实现。
